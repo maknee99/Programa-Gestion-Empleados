@@ -1,0 +1,82 @@
+package mariaruizgonzalez.proyectofinaltarea5online;
+public class Empresa {
+    private String nombre;
+    private Empleado[] empleados;
+    private int numEmpleados;
+    private NIF nif;
+    //constructor por defecto
+    public Empresa() {
+        this.nombre = "sin nombre";
+        this.empleados = new Empleado[10];
+        this.numEmpleados = 0;
+    }
+    // Constructor que recibe un nombre de una empresa y crea la empresa con ese
+    //nombre y reserva espacio en el array de empleados para 10.
+    public Empresa(String nombre) {
+        this.nombre = nombre;
+        this.empleados = new Empleado[10];
+        this.numEmpleados = 0;
+    }
+    //Constructor que recibe un nombre de empresa y un número máximo de empleados.
+    public Empresa(String nombre, int maxEmpleados) {
+        this.nombre = nombre;
+        this.empleados = new Empleado[maxEmpleados];
+        this.numEmpleados = 0;
+    }
+    //constructor addEmpleado.
+    public boolean addEmpleado(Empleado empleado) {
+        if (this.numEmpleados == this.empleados.length) {
+            return false;
+        }
+        System.out.println(empleado.getNif());
+        for (int i = 0; i < this.numEmpleados; i++) {
+            System.out.println("empleado nif");
+            System.out.println(this.empleados[i].getNif());
+            if (this.empleados[i].getNif().equals(empleado.getNif())){
+                return false;
+            }
+        }
+        this.empleados[this.numEmpleados] = empleado;
+        this.numEmpleados++;
+        return true;
+    }
+    //constructor delEmpleado
+    public boolean delEmpleado(int dni) {
+        for (int i = 0; i < this.numEmpleados; i++) {
+            if (this.empleados[i].getNif().getNumDNI()== dni) {
+                this.empleados[i] = null;
+                for (int j = i; j < this.numEmpleados - 1; j++) {
+                    this.empleados[j] = this.empleados[j + 1];
+                }
+                this.empleados[this.numEmpleados - 1] = null;
+                this.numEmpleados--;
+                return true;
+            }
+        }
+        return false;
+    }
+    //constructor getEmpleado
+    public Empleado getEmpleado(int dni) {
+        for (int i = 0; i < this.numEmpleados; i++) {
+            if (this.empleados[i].getNif().getNumDNI()== dni) {
+                return this.empleados[i];
+            }
+        }
+        return null;
+    }
+    //metodo costeEmpleados.
+    public double costeEmpleados() {
+        double costeTotal = 0;
+        for (int i = 0; i < this.numEmpleados; i++) {
+            costeTotal += this.empleados[i].sueldoBruto() - this.empleados[i].retenciones();
+        }
+        return costeTotal;
+    }
+    //metodo imprimirEmpleados.
+    public void imprimirEmpleados() {
+        for (int i = 0; i < this.numEmpleados; i++) {
+            this.empleados[i].imprimirInformacion();
+        }
+    }
+}
+
