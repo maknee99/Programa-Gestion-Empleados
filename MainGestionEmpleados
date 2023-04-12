@@ -1,0 +1,95 @@
+import java.util.Scanner;
+public class Programa {
+    public static void main(String[] args) {
+        String stringDni;
+        int dni;
+        NIF dniEmpleado = new NIF();
+        Scanner scanner = new Scanner(System.in);
+        String nombreEmpresa;
+        System.out.println("Introduce el nombre de la empresa: ");
+        nombreEmpresa = scanner.nextLine();
+        Empresa empresa = new Empresa(nombreEmpresa);
+        int opcion = 0;
+        while (opcion != 6) {
+            System.out.println("\nSeleccione una opción:");
+            System.out.println("1. Mostrar empleados");
+            System.out.println("2. Añadir empleado");
+            System.out.println("3. Eliminar empleado");
+            System.out.println("4. Mostrar empleado concreto");
+            System.out.println("5. Mostrar coste empleados");
+            System.out.println("6. Salir");
+            try {
+                opcion = scanner.nextInt();
+            } catch (Exception e) {
+                scanner.nextLine(); // Limpia el buffer de entrada
+                System.out.println("Por favor, seleccione una opción válida.");
+                continue;
+            }
+            switch (opcion) {
+                case 1:
+                    empresa.imprimirEmpleados();
+                    break;
+                case 2:
+                    Empleado nuevo_empleado = new Empleado();
+                    scanner.nextLine();
+                    System.out.println("Introduce el número de DNI del empleado: ");
+                    stringDni = scanner.nextLine();
+                    nuevo_empleado.setNif(new NIF(Integer.parseInt(stringDni)));
+                    System.out.println("Introduce el nombre del empleado: ");
+                    String stringNombre = scanner.nextLine();
+                    nuevo_empleado.setNombre(stringNombre);
+                    System.out.println("Introduce los apellidos del empleado: ");
+                    String stringApellidos = scanner.nextLine();
+                    nuevo_empleado.setApellidos(stringApellidos);
+                    System.out.println("El empleado esta casado? Si/ No: ");
+                    String casado = scanner.nextLine();
+                    if (casado.toLowerCase().equals("si")) {
+                        nuevo_empleado.setCasado(true);
+                    } else {
+                        nuevo_empleado.setCasado(false);
+                    }
+                    System.out.println("Introduce el numero de hijos: ");
+                    int numHijos = scanner.nextInt();
+                    nuevo_empleado.setNumeroHijos(numHijos);
+                    System.out.println("Introduce el sueldo base: ");
+                    int sueldoBase = scanner.nextInt();
+                    nuevo_empleado.setSueldoBase(sueldoBase);
+                    System.out.println("Introduce los complementos salariales: ");
+                    double complementosSalariales = scanner.nextDouble();
+                    nuevo_empleado.setComplementosSalariales(complementosSalariales);
+                    System.out.println("Introduce el porcentaje de IRPF: ");
+                    double porIRPF = scanner.nextDouble();
+                    nuevo_empleado.setPorcentajeIRPF(porIRPF);
+                    System.out.println(nuevo_empleado.getNif());
+                    empresa.addEmpleado(nuevo_empleado);
+                    break;
+                case 3:
+                    scanner.nextLine();
+                    System.out.println("Introduce el número de DNI del empleado que quieres eliminar: ");
+                    dni = scanner.nextInt();
+                    empresa.delEmpleado(dni);
+                    break;
+                case 4:
+                    scanner.nextLine();
+                    System.out.println("Introduce el número de DNI del empleado que quieres encontrar: ");
+                    dni = scanner.nextInt();
+                    Empleado empleadoBuscado = empresa.getEmpleado(dni);
+                    if (empleadoBuscado != null) {
+                        empleadoBuscado.imprimirInformacion();
+                    } else {
+                        System.out.println("Empleado no encontrado");
+                    }
+                    break;
+                case 5:
+                    System.out.println("Coste total de los empleados: " + empresa.costeEmpleados());
+                    break;
+                case 6:
+                    System.out.println("Saliendo del programa...");
+                    break;
+                default:
+                    System.out.println("Por favor, seleccione una opción válida.");
+            }
+        }
+        scanner.close();
+    }
+}
