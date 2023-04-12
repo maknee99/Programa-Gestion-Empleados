@@ -1,0 +1,40 @@
+package mariaruizgonzalez.proyectofinaltarea5online;
+public class NIF {
+    private int numDNI;
+    private char letra;
+    //constructor por defecto
+    public NIF() {
+        this.numDNI = 0;
+        this.letra = ' ';
+    }
+    //Constructor que reciba el DNI y establezca la letra que le corresponde.
+    public NIF(int numDNI) {
+        this.numDNI = numDNI;
+        this.letra = calcularLetra();
+    }
+    //getter y setter NumDNI
+    public int getNumDNI() {
+        return this.numDNI;
+    }
+    public void setNumDNI(int numDNI) {
+        this.numDNI = numDNI;
+        this.letra = calcularLetra();
+    }
+    //getter letra
+    public char getLetra() {
+        return this.letra;
+    }
+    @Override
+    public String toString() {
+        return String.format("%08d-%c", this.numDNI, this.letra);
+    }
+    //constructor mostrarNIF
+    public void mostrarNIF() {
+        System.out.println(toString());
+    }
+    //Funcion calcularLetra
+    private char calcularLetra() {
+        final String tablaLetras = "TRWAGMYFPDXBNJZSQVHLCKE";
+        return tablaLetras.charAt(this.numDNI % 23);
+    }
+}
