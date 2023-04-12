@@ -1,0 +1,131 @@
+package mariaruizgonzalez.proyectofinaltarea5online;
+public class Empleado {
+    // Atributos
+    private NIF nif;
+    private String nombre;
+    private String apellidos;
+    private double salarioBase;
+    private double complementos;
+    private double porIRPF;
+    private boolean casado;
+    private int hijos;
+    // Constructor por defecto
+    public Empleado() {
+        this.nif = new NIF();
+        this.nombre = "";
+        this.apellidos = "";
+        this.salarioBase = 0.0;
+        this.complementos = 0.0;
+        this.porIRPF = 0.0;
+        this.casado = false;
+        this.hijos = 0;
+    }
+    // Constructor con parámetros
+    public Empleado(NIF nif, String nombre, String apellidos, double sueldoBase, double complementosSalariales, double porcentajeIRPF, boolean casado, int numeroHijos) {
+        this.nif = nif;
+        this.nombre = nombre;
+        this.apellidos = apellidos;
+        this.salarioBase = sueldoBase;
+        this.complementos = complementosSalariales;
+        this.porIRPF = porcentajeIRPF;
+        this.casado = casado;
+        this.hijos = numeroHijos;
+    }
+    
+    // Métodos getters y setters
+    //getter y setter Nif
+    public NIF getNif() {
+        return this.nif;
+    }
+    public void setNif(NIF nif) {
+        this.nif = nif;
+    }
+    //getter y setter nombre
+    public String getNombre() {
+        return this.nombre;
+    }
+    public void setNombre(String nombre) {
+        this.nombre = nombre;
+    }
+    //getter y setter apellidos
+    public String getApellidos() {
+        return this.apellidos;
+    }
+    public void setApellidos(String apellidos) {
+        this.apellidos = apellidos;
+    }
+    //getter y setter sueldoBase
+    public double getSueldoBase() {
+        return this.salarioBase;
+    }
+    public void setSueldoBase(double sueldoBase) {
+        this.salarioBase = sueldoBase;
+    }
+    //getter y setter complementosSalariales
+    public double getComplementosSalariales() {
+        return this.complementos;
+    }
+    public void setComplementosSalariales(double complementosSalariales) {
+        this.complementos = complementosSalariales;
+    }
+    //getter y setter procentajeIRPF
+    public double getPorcentajeIRPF() {
+        return this.porIRPF;
+    }
+    public void setPorcentajeIRPF(double porcentajeIRPF) {
+        this.porIRPF = porcentajeIRPF;
+    }
+    //setter procentajeIRPF
+    public void setCasado(boolean casado) {
+        this.casado = casado;
+    }
+    //getter y setter numeroHijos
+    public int getNumeroHijos() {
+        return this.hijos;
+    }
+    public void setNumeroHijos(int numeroHijos) {
+        this.hijos = numeroHijos;
+    }
+    //Constructor casado
+    public boolean casado() {
+        return this.casado;
+    }
+    // Constructor sueldoBruto
+    public double sueldoBruto() {
+        return this.salarioBase + this.complementos;
+    }
+    //constructor retenciones
+    public double retenciones() {
+        double retenciones = this.porIRPF;
+        if(this.casado){
+            retenciones -= 2;
+        }
+        retenciones -= this.hijos;
+        if (retenciones < 0) {
+            retenciones = 0;
+        }
+        return sueldoBruto()* retenciones / 100;
+    }
+    //Constructor imprimirInformacionBasica
+    public void imprimirInformacionBasica() {
+        System.out.println("DNI: " + this.nif.toString());
+        System.out.println("Nombre: " + this.nombre);
+        System.out.println("Apellidos: " + this.apellidos);
+        System.out.println("Sueldo bruto: " + sueldoBruto());
+        System.out.println("Retenciones: " + retenciones());
+    }
+    //Constructor imprimirInformacion
+    public void imprimirInformacion() {
+        System.out.println("DNI: " + this.nif.toString());
+        System.out.println("Nombre: " + this.nombre);
+        System.out.println("Apellidos: " + this.apellidos);
+        System.out.println("Sueldo base: " + this.salarioBase);
+        System.out.println("Complementos salariales: " + this.complementos);
+        System.out.println("Porcentaje IRPF: " + this.porIRPF + "%");
+        System.out.println("Casado: " + (this.casado ? "Sí" : "No"));
+        System.out.println("Número de hijos: " + this.hijos);
+        System.out.println("Sueldo bruto: " + sueldoBruto());
+        System.out.println("Retenciones: " + retenciones());
+    }
+}
+
